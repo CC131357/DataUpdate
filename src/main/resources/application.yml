@@ -18,6 +18,11 @@ mybatis:
   type-aliases-package: com.example.spring_dingshi.entity
 server:
   port: 8089
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
 
 
 logging:
