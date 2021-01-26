@@ -40,25 +40,7 @@ public class MasterController {
     private ConnectPooledTest connectPooledTest;
     @Autowired
     SupplierGet supplierGet;
-    /**
-     * 插入ET_MARA数据
-     */
-    //@RequestMapping("/insertET_MARA")
-    //@Scheduled(cron = "* */5 * * * ?")
-    public void et_mara(){
-        basicDao.deleteET_MARA();
-        logger.info("表ET_MARA执行时间："+ LocalDateTime.now());
-        JSONObject data = materialGet.materialGet(ApiConstant.I_MATNR);
-        List<Map<String,String>> et_mara_list = (List<Map<String,String>>) data.get("ET_MARA");
-        if (et_mara_list==null){
-            System.out.println("ET_MARA结果集不存在");
-        }else if (null!=et_mara_list){
-            for (Map<String,String> map:et_mara_list){
-                basicDao.insertET_MARA(map);
-            }
-        }
-        System.out.println("表ET_MARA执行成功");
-    }
+
     /**
      * 插入ET_MARC数据
      */
