@@ -5,6 +5,7 @@ import com.example.spring_dingshi.entity.ET_MARC;
 import com.example.spring_dingshi.entity.ET_MVKE;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -169,14 +170,24 @@ public interface BasicDao {
     @Insert("insert into t438x(SPRAS,WERKS,DISGR,TEXT40) values(#{SPRAS},#{WERKS},#{DISGR},#{TEXT40})")
     int insertT438X(Map<String, String> t438x);
 
+    @Delete("delete from et_mara")
+    void deleteET_MARA();
+
+    /*插入新基本视图*/
+    @Insert("insert into et_mara(MATNR,MAKTX,MATKL,WGBEZ,MTART,MTBEZ,MEINS,ZBZGG,MHDRZ,MHDHB,IPRKZ,TRAGR,ZVERS,ZBISM,ZYTSS,ZGUIG,ZGGXH,ZBCXH,ZGYSM,ERSDA,LAEDA,LVORM,ZZTAI,ZCAND,ZCDDW,ZKUAN,ZKDDW,ZWXCC,ZSHHD,ZBANH,ZBHGC,ZTONH,ZXTON,ZTBLE,ZXTBL,ZBLBZ,ZYANS,ZSFKB,ZBLDJ,ZBJZT,ZTBRA,ZTBR1,ZTBZA,ZTBRZ,ZTBCC,ZSZHL,ZHDSS,ZDUDW,ZBLHD,ZSZLD,ZDKSS,ZDK02,ZDK03,ZDK04,ZDK05,ZDK06,ZDK07,ZDK08,ZDK09,ZDK10,ZDK15,ZDK20,ZDFSS,ZDF02,ZDF03,ZDF04,ZDF05,ZDF06,ZDF07,ZDF08,ZDF09,ZDF10,ZDF15,ZDF20) " +
+            "values(#{MATNR},#{MAKTX},#{MATKL},#{WGBEZ},#{MTART},#{MTBEZ},#{MEINS},#{ZBZGG},#{MHDRZ},#{MHDHB},#{IPRKZ},#{TRAGR},#{ZVERS},#{ZBISM},#{ZYTSS},#{ZGUIG},#{ZGGXH},#{ZBCXH},#{ZGYSM},#{ERSDA},#{LAEDA},#{LVORM},#{ZZTAI},#{ZCAND},#{ZCDDW},#{ZKUAN},#{ZKDDW},#{ZWXCC},#{ZSHHD},#{ZBANH},#{ZBHGC},#{ZTONH},#{ZXTON},#{ZTBLE},#{ZXTBL},#{ZBLBZ},#{ZYANS},#{ZSFKB},#{ZBLDJ},#{ZBJZT},#{ZTBRA},#{ZTBR1},#{ZTBZA},#{ZTBRZ},#{ZTBCC},#{ZSZHL},#{ZHDSS},#{ZDUDW},#{ZBLHD},#{ZSZLD},#{ZDKSS},#{ZDK02},#{ZDK03},#{ZDK04},#{ZDK05},#{ZDK06},#{ZDK07},#{ZDK08},#{ZDK09},#{ZDK10},#{ZDK15},#{ZDK20},#{ZDFSS},#{ZDF02},#{ZDF03},#{ZDF04},#{ZDF05},#{ZDF06},#{ZDF07},#{ZDF08},#{ZDF09},#{ZDF10},#{ZDF15},#{ZDF20})")
+    int insertET_MARA(Map<String, String> et_mara);
+
     @Delete("delete from et_marc")
     void deleteET_MARC();
+    /*插入新工厂视图 */
     @Insert("insert into et_marc(MATNR,WERKS,NAME1,ZBISM,EKGRP,XCHAR,DISGR,DISMM,DISPO,DISLS,BESKZ,LGFSB,PLIFZ,SBDKZ,BKLAS,LADGR) " +
             "values(#{MATNR},#{WERKS},#{NAME1},#{ZBISM},#{EKGRP},#{XCHAR},#{DISGR},#{DISMM},#{DISPO},#{DISLS},#{BESKZ},#{LGFSB},#{PLIFZ},#{SBDKZ},#{BKLAS},#{LADGR})")
     int insertET_MARC(Map<String, String> et_marc);
 
     @Delete("delete from et_mvke")
     void deleteET_MVKE();
+    /*插入新销售视图*/
     @Insert("insert into et_mvke(MATNR,VKORG,VTWEG,DWERK,KTGRM,MTPOS) values(#{MATNR},#{VKORG},#{VTWEG},#{DWERK},#{KTGRM},#{MTPOS})")
     int insertET_MVKE(Map<String, String> et_mvke);
 
@@ -227,7 +238,7 @@ public interface BasicDao {
 
     @Delete("delete from tq30t ")
     void deleteTQ30T();
-    @Insert("insert into tq30t(SPRACHE,ART,KURZTEXT,LTXA1) values(#{SPRACHE},#{ART},#{KURZTEXT},#{LTXA1})")
+    @Insert("insert into tq30t(ART,KURZTEXT,LTXA1) values(#{ART},#{KURZTEXT},#{LTXA1})")
     int insertTQ30T(Map<String, String> tq30t);
 
     @Delete("delete from labour")
@@ -266,29 +277,23 @@ public interface BasicDao {
     int insertSupplier(Map<String, String> supplier);
 
     /**
-     * 物料主数据更新
+     * 测试更新
      */
     /*查询基本视图*/
     @Select("select MATNR,MAKTX from et_mara where MATNR=#{MATNR} and MAKTX=#{MAKTX}")
-    ET_MARA getET_MARA(String MATNR,String MAKTX);
-    /*插入基本视图*/
-    @Insert("insert into et_mara(MATNR,MAKTX,MATKL,WGBEZ,MTART,MTBEZ,MEINS,ZBZGG,MHDRZ,MHDHB,IPRKZ,TRAGR,ZVERS,ZBISM,ZYTSS,ZGUIG,ZGGXH,ZBCXH,ZGYSM,ERSDA,LAEDA,LVORM,ZZTAI,ZCAND,ZCDDW,ZKUAN,ZKDDW,ZWXCC,ZSHHD,ZBANH,ZBHGC,ZTONH,ZXTON,ZTBLE,ZXTBL,ZBLBZ,ZYANS,ZSFKB,ZBLDJ,ZBJZT,ZTBRA,ZTBR1,ZTBZA,ZTBRZ,ZTBCC,ZSZHL,ZHDSS,ZDUDW,ZBLHD,ZSZLD,ZDKSS,ZDK02,ZDK03,ZDK04,ZDK05,ZDK06,ZDK07,ZDK08,ZDK09,ZDK10,ZDK15,ZDK20,ZDFSS,ZDF02,ZDF03,ZDF04,ZDF05,ZDF06,ZDF07,ZDF08,ZDF09,ZDF10,ZDF15,ZDF20) " +
-            "values(#{MATNR},#{MAKTX},#{MATKL},#{WGBEZ},#{MTART},#{MTBEZ},#{MEINS},#{ZBZGG},#{MHDRZ},#{MHDHB},#{IPRKZ},#{TRAGR},#{ZVERS},#{ZBISM},#{ZYTSS},#{ZGUIG},#{ZGGXH},#{ZBCXH},#{ZGYSM},#{ERSDA},#{LAEDA},#{LVORM},#{ZZTAI},#{ZCAND},#{ZCDDW},#{ZKUAN},#{ZKDDW},#{ZWXCC},#{ZSHHD},#{ZBANH},#{ZBHGC},#{ZTONH},#{ZXTON},#{ZTBLE},#{ZXTBL},#{ZBLBZ},#{ZYANS},#{ZSFKB},#{ZBLDJ},#{ZBJZT},#{ZTBRA},#{ZTBR1},#{ZTBZA},#{ZTBRZ},#{ZTBCC},#{ZSZHL},#{ZHDSS},#{ZDUDW},#{ZBLHD},#{ZSZLD},#{ZDKSS},#{ZDK02},#{ZDK03},#{ZDK04},#{ZDK05},#{ZDK06},#{ZDK07},#{ZDK08},#{ZDK09},#{ZDK10},#{ZDK15},#{ZDK20},#{ZDFSS},#{ZDF02},#{ZDF03},#{ZDF04},#{ZDF05},#{ZDF06},#{ZDF07},#{ZDF08},#{ZDF09},#{ZDF10},#{ZDF15},#{ZDF20})")
-    int insertET_MARA(Map<String, String> et_mara);
+    ET_MARA getET_MARA(@Param("MATNR") String MATNR,@Param("MAKTX") String MAKTX);
     /*更新基本视图*/
     @Update("update et_mara set MATKL=#{MATKL},WGBEZ=#{WGBEZ},MTART=#{MTART},MTBEZ=#{MTBEZ},MEINS=#{MEINS},ZBZGG=#{ZBZGG},MHDRZ=#{MHDRZ},MHDHB=#{MHDHB},IPRKZ=#{IPRKZ},TRAGR=#{TRAGR},ZVERS=#{ZVERS},ZBISM=#{ZBISM},ZYTSS=#{ZYTSS},ZGUIG=#{ZGUIG},ZGGXH=#{ZGGXH},ZBCXH=#{ZBCXH},ZGYSM=#{ZGYSM},ERSDA=#{ERSDA},LAEDA=#{LAEDA},LVORM=#{LVORM},ZZTAI=#{ZZTAI},ZCAND=#{ZCAND},ZCDDW=#{ZCDDW},ZKUAN=#{ZKUAN},ZKDDW=#{ZKDDW},ZWXCC=#{ZWXCC},ZSHHD=#{ZSHHD},ZBANH=#{ZBANH},ZBHGC=#{ZBHGC},ZTONH=#{ZTONH},ZXTON=#{ZXTON},ZTBLE=#{ZTBLE},ZXTBL=#{ZXTBL},ZBLBZ=#{ZBLBZ},ZYANS=#{ZYANS},ZSFKB=#{ZSFKB},ZBLDJ=#{ZBLDJ},ZBJZT=#{ZBJZT},ZTBRA=#{ZTBRA},ZTBR1=#{ZTBR1},ZTBZA=#{ZTBZA},ZTBRZ=#{ZTBRZ},ZTBCC=#{ZTBCC},ZSZHL=#{ZSZHL},ZHDSS=#{ZHDSS},ZDUDW=#{ZDUDW},ZBLHD=#{ZBLHD},ZSZLD=#{ZSZLD},ZDKSS=#{ZDKSS},ZDK02=#{ZDK02},ZDK03=#{ZDK03},ZDK04=#{ZDK04},ZDK05=#{ZDK05},ZDK06=#{ZDK06},ZDK07=#{ZDK07},ZDK08=#{ZDK08},ZDK09=#{ZDK09},ZDK10=#{ZDK10},ZDK15=#{ZDK15},ZDK20=#{ZDK20},ZDFSS=#{ZDFSS},ZDF02=#{ZDF02},ZDF03=#{ZDF03},ZDF04=#{ZDF04},ZDF05=#{ZDF05},ZDF06=#{ZDF06},ZDF07=#{ZDF07},ZDF08=#{ZDF08},ZDF09=#{ZDF09},ZDF10=#{ZDF10},ZDF15=#{ZDF15},ZDF20=#{ZDF20} where MATNR=#{MATNR} and MAKTX=#{MAKTX} ")
     int updateET_MARA(Map<String, String> et_mara);
-
     /*查询工厂视图*/
     @Select("select MATNR,WERKS from et_marc where MATNR=#{MATNR} and WERKS=#{WERKS}")
     ET_MARC getET_MARC(String MATNR,String WERKS);
-    /*更新工厂视图*/
+    /*更新基本视图*/
     @Update("update et_marc set NAME1=#{NAME1},ZBISM=#{ZBISM},EKGRP=#{EKGRP},XCHAR=#{XCHAR},DISGR=#{DISGR},DISMM=#{DISMM},DISPO=#{DISPO},DISLS=#{DISLS},BESKZ=#{BESKZ},LGFSB=#{LGFSB},PLIFZ=#{PLIFZ},SBDKZ=#{SBDKZ},BKLAS=#{BKLAS},LADGR=#{LADGR} where MATNR=#{MATNR} and WERKS=#{WERKS}")
     int updateET_MARC(Map<String, String> et_marc);
-
     /*查询销售视图*/
     @Select("select MATNR,VKORG,VTWEG,DWERK,KTGRM,MTPOS from et_mvke where MATNR=#{MATNR} AND VKORG=#{VKORG} AND VTWEG=#{VTWEG} AND DWERK=#{DWERK} AND KTGRM=#{KTGRM} AND MTPOS=#{MTPOS}")
-    ET_MVKE getET_MVKE(String MATNR, String VKORG, String VTWEG, String DWERK, String KTGRM, String MTPOS);
+    List<ET_MVKE> getET_MVKE(String MATNR, String VKORG, String VTWEG, String DWERK, String KTGRM, String MTPOS);
 
 }
 

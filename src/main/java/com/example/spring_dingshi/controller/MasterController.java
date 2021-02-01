@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-//@EnableScheduling
+@EnableScheduling
 @RestController
 @RequestMapping("/other")
 public class MasterController {
@@ -44,8 +44,8 @@ public class MasterController {
     /**
      * 插入ET_MARC数据
      */
-    @RequestMapping("/insertET_MARC")
-    @Scheduled(cron = "0/60 * * * * ?")
+    //@RequestMapping("/insertET_MARC")
+    //@Scheduled(cron = "0/60 * * * * ?")
     public void et_marc(){
         basicDao.deleteET_MARC();
         System.out.println("表ET_MARC执行时间："+ LocalDateTime.now());
@@ -74,8 +74,8 @@ public class MasterController {
     /**
      * 插入ET_MVKE数据
      */
-    @RequestMapping("/insertET_MVKE")
-    @Scheduled(cron = "0/60 * * * * ?")
+    //@RequestMapping("/insertET_MVKE")
+    //@Scheduled(cron = "0/60 * * * * ?")
     public void et_mvke(){
         basicDao.deleteET_MVKE();
         System.out.println("表ET_MVKE执行时间："+ LocalDateTime.now());
@@ -119,8 +119,8 @@ public class MasterController {
     /**
      * 插入劳保数据
      */
-    @RequestMapping("/insertLabour")
-    @Scheduled(cron = "0/120 * * * * ?")
+    //@RequestMapping("/insertLabour")
+    //@Scheduled(cron = "0/120 * * * * ?")
     public void labour(){
         basicDao.deleteLabour();
         System.out.println("表Labour执行时间："+ LocalDateTime.now());
@@ -205,20 +205,20 @@ public class MasterController {
      * 插入供应商主数据
      */
     @RequestMapping("/insertSupplier")
-    @Scheduled(cron = "0/60 * * * * ?")
+    @Scheduled(cron = "0 0 7,13,17 * * ?")
     public void supplier(){
         basicDao.deleteSupplier();
-        System.out.println("表Supplier执行时间："+ LocalDateTime.now());
+        //System.out.println("表Supplier执行时间："+ LocalDateTime.now());
         JSONObject data = supplierGet.supplierGet(Constant.SUPPLIER);
         if (data==null){
-            System.out.println("Supplier结果集不存在");
+            //System.out.println("Supplier结果集不存在");
         }else {
             List<Map<String,String>> list = (List<Map<String,String>>) data.get("ET_DATA");
             for (Map<String,String> map:list){
                 basicDao.insertSupplier(map);
             }
         }
-        System.out.println("Supplier表执行完成");
+        //System.out.println("Supplier表执行完成");
     }
 
 }

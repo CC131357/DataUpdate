@@ -6,14 +6,24 @@ import com.example.spring_dingshi.Dao.BasicDao;
 import com.example.spring_dingshi.entity.ET_MARA;
 import com.example.spring_dingshi.entity.ET_MARC;
 import com.example.spring_dingshi.entity.ET_MVKE;
+import com.example.spring_dingshi.entity.MaterialData;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -37,17 +47,22 @@ public class UpdateController {
         if ((null!=et_mara_list)||(null!=et_marc_list)||(null!=et_mvke_list)){
             if (null!=et_mara_list){
                 for (Map<String,String> map:et_mara_list){
-                    JSONObject result = new JSONObject();
-                    String MATNR=map.get("MATNR");
-                    String MAKTX=map.get("MAKTX");
-                    ET_MARA etMara = basicDao.getET_MARA(MATNR,MAKTX);
-                    if(null==etMara){
-                        basicDao.insertET_MARA(map);
-                    }else {
-                        basicDao.updateET_MARA(map);
+                    try {
+                        JSONObject result = new JSONObject();
+                        String MATNR=map.get("MATNR");
+                        String MAKTX=map.get("MAKTX");
+                        ET_MARA etMara = basicDao.getET_MARA(MATNR,MAKTX);
+                        if(null==etMara|| "".equals(etMara)){
+                            basicDao.insertET_MARA(map);
+                        }else {
+                            basicDao.updateET_MARA(map);
+                        }
+                        result.put("MSG", "编码"+MATNR+"数据更新成功");
+                        returnArr.add(result);
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                    result.put("MSG", "编码"+MATNR+"数据更新成功");
-                    returnArr.add(result);
+
                 }
             }
             returnObj.put("RETURN_INFO",returnArr);
@@ -71,11 +86,11 @@ public class UpdateController {
                     String DWERK=map.get("DWERK");
                     String KTGRM=map.get("KTGRM");
                     String MTPOS=map.get("MTPOS");
-                    ET_MVKE etMvke = basicDao.getET_MVKE(MATNR,VKORG,VTWEG,DWERK,KTGRM,MTPOS);
-                    if (null==etMvke){
+                    List<ET_MVKE> et_mvkeList = basicDao.getET_MVKE(MATNR,VKORG,VTWEG,DWERK,KTGRM,MTPOS);
+                    if (null==et_mvkeList){
                         basicDao.insertET_MVKE(map);
                     }else {
-                        System.out.println("数据存在");
+                        //System.out.println("数据存在");
                     }
                 }
             }

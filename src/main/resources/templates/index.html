@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>板材型号导入</title>
+    <style>
+        button{
+            border-radius: 5px;
+            background-color: #2ECCFA;
+            width: 70px;
+            height: 30px;
+        }
+        body{
+            margin-top: 50px;
+            text-align:center
+        }
+        input{
+            margin-left: 180px;
+        }
+    </style>
+</head>
+<body>
+<h1 style="color: dodgerblue">板材型号下载上传</h1>
+<h3>点击下面的连接下载模板文件</h3>
+<a href="/download">模板下载</a><br/>
+<h3>导入.xlsx格式板材型号文档</h3>
+<form class="form-horizontal" id="form_table" action="/import" enctype="multipart/form-data" method="post" name="form1">
+        <input class="form-input" type="file" name="filename"></input><br/><br/>
+        <button type="submit" class="btn btn-primary" onclick="javascript:{this.disabled=true;document.form1.submit();}">上传文档</button>
+    </form>
+</body>
+</html>

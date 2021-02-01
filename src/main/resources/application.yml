@@ -11,6 +11,12 @@ spring:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
     password: kbdyn2015
+    thymeleaf:
+      cache: false
+      mode: HTML5
+      encoding: UTF-8
+      servlet:
+        content-type: text/html
 
 
 
@@ -27,5 +33,6 @@ server:
 
 logging:
   config: classpath:log4j.xml
+
 
 
